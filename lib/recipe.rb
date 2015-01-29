@@ -4,8 +4,8 @@ class Recipe < ActiveRecord::Base
   validates_uniqueness_of(:name, {:case_sensitive => false})
   before_save(:titlecase_name)
 
-  scope :servings?, lambda{ |serving_request|
-    where("servings >= ?", serving_request)}
+  scope :servings?, lambda {|serving_request|
+    where("SERVINGS >= ?", serving_request)}
 
 private
   define_method(:titlecase_name) do
