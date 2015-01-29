@@ -7,8 +7,14 @@ Dir[File.dirname(__FILE__) + '/../lib/*.rb'].each { |file| require file }
 
 RSpec.configure do |config|
   config.after(:each) do
-    Survey.all().each() do |survey|
-      survey.destray()
+    Recipe.all().each() do |recipe|
+      recipe.destroy()
+    end
+    Ingredient.all().each() do |ingredient|
+      ingredient.destroy()
+    end
+    Category.all().each() do |category|
+      category.destroy()
     end
   end
 end
