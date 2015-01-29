@@ -1,0 +1,23 @@
+<h1>Cookbook</h1>
+
+<% if Category.any?() do %>
+  <ul>
+    <% @list_of_categories.each() do |category| %>
+      <li><%= category.name() %></li>
+        <ul>
+          <% category.recipes().each() do |recipe| %>
+            <li><%= recipe.name() %></li>
+          <% end %>
+        </ul>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You ain't got no recipes yet, fool</p>
+<% end %>
+
+<h4>Add a new recipe:</h4>
+<form action="/recipe_add" method="post">
+  <label for="new_recipe">Recipe name:</label>
+  <input id="new_recipe" name="new_recipe" type="text" placeholder="Jambalaya Stew">
+  <button type="submit" class="btn btn-primary">Create Recipe</button>
+</form>
