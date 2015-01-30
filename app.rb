@@ -12,6 +12,8 @@ end
 post('/recipe_add') do
   name_input = params.fetch("new_recipe_name")
   new_recipe = Recipe.create({:name => name_input})
+
+
   @recipe_name = new_recipe.name()
   @recipe_id = new_recipe.id()
   @title = @recipe_name
@@ -31,7 +33,7 @@ post('/ingredient_add') do
   else
     old_ingredient_id = params.fetch('ingredient_id')
     old_ingredient = Ingredient.find(old_ingredient_id)
-    old_ingredient.update({:recipe_ids => @recipe_id})
+    old_ingredient.recipe_ids().push(@recipe_id)  ##############problem here
   end
 
   @list_of_categories = Category.all()
@@ -55,7 +57,7 @@ post('/category_add') do
   else
     old_category_id = params.fetch('category_id')
     old_category = Category.find(old_category_id)
-    old_category.update({:recipe_ids => @recipe_id})
+    old_category.recipes().push(@recipe_id)
   end
   erb(:recipe_edit)
 end
