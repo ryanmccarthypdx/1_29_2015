@@ -11,13 +11,14 @@
         </ul>
     <% end %>
   </ul>
+<% end %>
 <% else %>
   <p>You ain't got no recipes yet, fool</p>
 <% end %>
 
 <h4>Add a new recipe:</h4>
 <form action="/recipe_add" method="post">
-  <label for="new_recipe">Recipe name:</label>
-  <input id="new_recipe" name="new_recipe" type="text" placeholder="Jambalaya Stew">
+  <label for="new_recipe_name">Recipe name:</label>
+  <input id="new_recipe_name" name="new_recipe_name" type="text" placeholder="Jambalaya Stew">
   <button type="submit" class="btn btn-primary">Create Recipe</button>
 </form>

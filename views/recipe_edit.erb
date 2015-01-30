@@ -1,0 +1,29 @@
+<h1><%= @recipe_name %> Recipe</h1>
+
+<% if @recipe_ingredients.!=(nil) %>
+  <h4> The Ingredient List: </h4>
+  <ul>
+    <% @recipe_ingredients.each() do |recipe_ingredient| %>
+      <li> <%= recipe_ingredient.name() %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <h4> You don't have any ingredients listed for this recipe yet, prick.</h4>
+<% end %>
+
+<form action="/ingredient_add" method="post">
+  <input type="hidden" name="recipe_id" value="<%= @recipe_id %>">
+  <input type="hidden" name="recipe_name" value="<%= @recipe_name %>">
+  <label for='ingredient_id'>Choose an exisiting ingredient:</label>
+  <select id='ingredient_id' name='ingredient_id' type='text'>
+    <option value="" selected disabled>Please select</option>
+    <% @list_of_ingredients.each() do |ingredient| %>
+    <option value="<%= ingredient.id()%>"> <%= ingredient.name() %> </option>
+    <% end %>
+  </select>
+  <br>
+  <label for='new_ingredient_name'>...or add a new one:</label>
+  <input id='new_ingredient_name' name='new_ingredient_name' type='text' placeholder='carrot'>
+  <br>
+  <button type='submit' class='btn btn-primary'>Add ingredient</button>
+</form>
