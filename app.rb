@@ -31,10 +31,31 @@ post('/ingredient_add') do
   else
     old_ingredient_id = params.fetch('ingredient_id')
     old_ingredient = Ingredient.find(old_ingredient_id)
-    old_ingredient.update({:recipe_ids => [@recipe_id]})
+    old_ingredient.update({:recipe_ids => @recipe_id})
   end
-  @title = @recipe_name
 
   @list_of_categories = Category.all()
+  @recipe_categories = Recipe.find(@recipe_id).categories()
+
+  @title = @recipe_name
+  erb(:recipe_edit)
+end
+
+post('/category_add') do
+  @list_of_ingredients = Ingredient.all()
+  @recipe_id = (params.fetch("recipe_id")).to_i()
+  @recipe_ingredients = Recipe.find(@recipe_id).ingredients()
+  @recipe_name = (params.fetch("recipe_name"))
+
+  @list_of_categories = Category.all()
+  @recipe_categories = Recipe.find(@recipe_id).categories()
+  new_category_name = params.fetch("new_category_name")
+  if new_category_name != ""
+    Category.create({:name => new_category_name, :recipe_ids => @recipe_id})
+  else
+    old_category_id = params.fetch('category_id')
+    old_category = Category.find(old_category_id)
+    old_category.update({:recipe_ids => @recipe_id})
+  end
   erb(:recipe_edit)
 end
